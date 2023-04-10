@@ -1,15 +1,33 @@
 <script setup>
 import { ref } from 'vue'
+
 const username = ref('') // 用户名
+const password = ref('') // 密码
+
+function clearUserName() {
+  username.value = ''
+}
+
+function clearPassword() {
+  password.value = ''
+}
+
 </script>
 <template>
   <div id="container">
     <div id="panel-background"></div>
     <div id="panel-title" class="text-common-style">系统登录</div>
     <div id="panel-username-input">
-      <span class="input-label text-common-style">用户名</span>
+      <span class="input-label text-common-style">账户</span>
       <input class="input-content" type="text" name="username" v-model="username" />
-      <div class="close-button">
+      <div class="close-button" v-if="username" @click="clearUserName">
+        <img class="close-button-img" src="/src/assets/img/close.png" />
+      </div>
+    </div>
+    <div id="panel-password-input">
+      <span class="input-label text-common-style">密码</span>
+      <input class="input-content" type="password" name="username" v-model="password" />
+      <div class="close-button" v-if="password" @click="clearPassword">
         <img class="close-button-img" src="/src/assets/img/close.png" />
       </div>
     </div>
@@ -49,13 +67,6 @@ const username = ref('') // 用户名
   transform: translateX(-50%);
   font-size: 2rem;
 }
-/* 输入项-用户名 */
-#panel-username-input {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
-}
 /* 输入项标题 */
 .input-label {
 }
@@ -72,6 +83,11 @@ const username = ref('') // 用户名
 .input-content:focus {
   background-color: rgba(255, 255, 255, 0.15);
 }
+/* 输入项内容右侧不显示浏览器自带的删除按钮或显示明文按钮 */
+.input-content::-ms-reveal,
+.input-content::-ms-clear {
+  display: none;
+}
 /* 删除按钮 */
 .close-button {
   position: absolute;
@@ -80,7 +96,7 @@ const username = ref('') // 用户名
   transform: translateY(-50%);
   width: 20px;
   height: 20px;
-  border: 1px white solid;
+  border: 1px #ffffff solid;
 }
 /* 删除按钮中的图片 */
 .close-button-img {
@@ -91,5 +107,23 @@ const username = ref('') // 用户名
   position: absolute;
   transform: translate(-50%, -50%);
   filter: invert(100%); /* 反转颜色，黑色变白色*/
+}
+/* 删除按钮的按压态 */
+.close-button:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+/* 输入项-用户名 */
+#panel-username-input {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* 输入项-密码 */
+#panel-password-input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>
